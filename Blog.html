@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+    <title>Artikel</title>
+    {% endblock page_title %}
+
+
+
+{% block contents %} 
+ <h3 class="text-center">Artikel List</h3>
+ <br>
+ <section class="py-6">
+  <div class="container">
+    <div class="row mb-5">
+      <!-- blog item-->
+      {% for artikel in artikel_list %}
+      <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
+        <div class="card shadow border-0 h-100">
+          <a href="{% url 'artikel:detail' artikel.slug %}">
+            {% if artikel.header_img %}
+            <img class="img-fluid card-img-top" style="width: 450px; height: 250px; object-fit: cover;" src="{{artikel.header_img.url}}" alt="Image"/></a>
+            {% endif %}
+          <div class="card-body">
+            <h5 class="my-2"><a class="text-dark" href="{% url 'artikel:detail' artikel.slug %}">
+             {{artikel.judul}}</a></h5>
+            <p class="my-2 text-muted text-sm">
+              {{artikel.isi | truncatewords:15}}
+            </p>
+          </div>
+          <p class="card-footer bg-transparent">{{artikel.published.date| date:'j M Y'}}
+            <a class="card-link float-right" href="{% url 'artikel:detail' artikel.slug %}" >Selengkapnya</a></p>
+        </div>
+      </div>
+      {% endfor %}
+
+
+    </div>
+</div>
+{% endblock contents %}
+
