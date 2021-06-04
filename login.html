@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+<title> Login Page </title>
+{% endblock page_title %}
+
+
+{% block contents %}
+
+ {% if messages %}
+     {% for message in messages %}
+         <div class="text-center alert alert-{{ message.tags }}">
+             {{ message|safe }}
+         </div>
+     {% endfor %}
+ {% endif %}
+<div class="col-lg-3 col-sm-6 mb-4 hover-animate text-center">
+<form method="POST" action="{% url 'login' %}">
+{% csrf_token %}
+    {{form.errors}}
+<div class="mb-3">
+    <label for="{{form.username.name}}">{{form.username.label_tag}}</label>
+    <input type="text" class="form-control" name="{{form.username.name}}" autofocus maxlength="254" required id="{{form.username.id_for_label}}" placeholder="Username">
+ </div>
+ <div class="mb-3">
+    <label for="{{form.password.name}}">{{form.password.label_tag}}</label>
+    <input type="password" class="form-control" name="{{form.password.name}}" required id="{{form.password.id_for_label}}" placeholder="Password">
+ </div>
+ <button type="submit" class="btn btn-primary mb-5" value="login">Login</button>
+</form>
+<a href=""> Forgot Password?</a>
+<p> Don't have an account?<a href="{% url 'register' %}"> Sign up</a></p>
+</div>
+{% endblock contents %}
